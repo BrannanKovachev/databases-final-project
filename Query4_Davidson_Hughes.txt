@@ -1,0 +1,16 @@
+MariaDB [bekovach]> SELECT Pricing.Price, GROUP_CONCAT(DISTINCT Users.Name SEPARATOR ', ') AS Names
+    -> FROM Pricing NATURAL JOIN Puppies JOIN Users ON Puppies.UserReservingID = Users.UserID
+    -> GROUP BY(Pricing.Price);
++-------+------------------------------------------------------------+
+| Price | Names                                                      |
++-------+------------------------------------------------------------+
+|   300 | John Smith, Josh Lingo, Mikhala Young, Robert Hughes       |
+|   350 | Gryphon Winkley, Mikhala Young, Robert Hughes              |
+|   400 | Gryphon Winkley, Josh Lingo, Matthew Ronald, Robert Hughes |
+|   450 | Gryphon Winkley, John Smith, Mikhala Young, Sheldon Birk   |
+|   500 | John Smith, Josh Lingo, Matthew Ronald, Robert Hughes      |
+|   550 | Josh Lingo, Matthew Ronald, Mikhala Young, Sheldon Birk    |
++-------+------------------------------------------------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [bekovach]> notee

@@ -1,0 +1,26 @@
+MariaDB [bekovach]> SELECT Parents, Puppies.CollarColor, Puppies.Gender
+    ->     FROM Puppies JOIN(SELECT GROUP_CONCAT(Adult_Dogs.Name SEPARATOR ', ') as Parents, Litter.LitterID 
+    ->     FROM Litter JOIN Adult_Dogs ON Litter.MotherID = Adult_Dogs.DogID OR Litter.FatherID = Adult_Dogs.DogID 
+    ->     GROUP BY(Litter.LitterID)) AS P ON Puppies.LitterID = P.LitterID
+    -> WHERE Puppies.LitterID IN (
+    ->     SELECT Litter.LitterID 
+    ->     FROM Litter JOIN Adult_Dogs ON Litter.FatherID = Adult_Dogs.DogID 
+    ->     WHERE Adult_Dogs.Name = 'Oscar');
++---------------+-------------+--------+
+| Parents       | CollarColor | Gender |
++---------------+-------------+--------+
+| Oscar, Coco   | Black       | Female |
+| Oscar, Coco   | Blue        | Male   |
+| Oscar, Coco   | Green       | Male   |
+| Oscar, Coco   | Red         | Male   |
+| Oscar, Coco   | Yellow      | Female |
+| Jasper, Oscar | Black       | Male   |
+| Jasper, Oscar | Brown       | Male   |
+| Jasper, Oscar | Green       | Male   |
+| Jasper, Oscar | Pink        | Male   |
+| Jasper, Oscar | Sky Blue    | Male   |
+| Jasper, Oscar | Yellow      | Female |
++---------------+-------------+--------+
+11 rows in set (0.000 sec)
+
+MariaDB [bekovach]> notee
