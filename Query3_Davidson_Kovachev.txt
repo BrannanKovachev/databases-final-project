@@ -1,0 +1,16 @@
+MariaDB [bekovach]> SELECT Adult_Dogs.Name, GROUP_CONCAT(DISTINCT Users.Name SEPARATOR ', ') AS Names
+    -> FROM Users JOIN Puppies on Puppies.UserReservingID = Users.UserID NATURAL JOIN Litter 
+    -> join Adult_Dogs on Litter.MotherID = Adult_Dogs.DogID
+    -> Group BY(Adult_Dogs.DogID);
++--------+-----------------------------------------------------------------------------------------+
+| Name   | Names                                                                                   |
++--------+-----------------------------------------------------------------------------------------+
+| Angie  | John Smith, Mikhala Young, Robert Hughes, Sheldon Birk                                  |
+| Jasper | John Smith, Josh Lingo, Matthew Ronald, Robert Hughes, Sheldon Birk                     |
+| Coco   | Gryphon Winkley, Josh Lingo, Matthew Ronald, Mikhala Young, Robert Hughes, Sheldon Birk |
+| Bella  | John Smith, Josh Lingo, Matthew Ronald, Mikhala Young, Sheldon Birk                     |
+| Rosie  | Josh Lingo, Matthew Ronald, Mikhala Young, Robert Hughes                                |
++--------+-----------------------------------------------------------------------------------------+
+5 rows in set (0.000 sec)
+
+MariaDB [bekovach]> notee

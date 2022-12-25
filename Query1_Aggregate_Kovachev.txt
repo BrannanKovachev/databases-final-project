@@ -1,0 +1,22 @@
+MariaDB [bekovach]> SELECT Parents, COUNT(CASE WHEN UserReservingID IS NULL THEN 1 END) AS 'Number of Available Puppies'
+    -> From Puppies JOIN (
+    ->     SELECT GROUP_CONCAT(Adult_Dogs.Name SEPARATOR ', ') as Parents, Litter.LitterID 
+    ->     FROM Litter JOIN Adult_Dogs ON Litter.MotherID = Adult_Dogs.DogID OR Litter.FatherID = Adult_Dogs.DogID 
+    ->     GROUP BY(Litter.LitterID)) AS T
+    ->     ON Puppies.LitterID = T.LitterID
+    -> GROUP BY(Puppies.LitterID) 
+    -> ORDER BY COUNT(CASE WHEN UserReservingID IS NULL THEN 1 END) DESC;
++---------------+-----------------------------+
+| Parents       | Number of Available Puppies |
++---------------+-----------------------------+
+| Coco, Oscar   |                           3 |
+| Oscar, Jasper |                           3 |
+| Rufus, Jasper |                           2 |
+| Milo, Angie   |                           1 |
+| Rosie, Rufus  |                           1 |
+| Bella, Milo   |                           0 |
+| Coco, Duke    |                           0 |
++---------------+-----------------------------+
+7 rows in set (0.000 sec)
+
+MariaDB [bekovach]> notee
